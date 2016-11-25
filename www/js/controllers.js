@@ -6,9 +6,14 @@ angular.module('starter.controllers', [])
 
 $ionicPlatform.ready(function() {
     $scope.turnOn = function() {
+      var start = new Date();
       $cordovaFlashlight.switchOn()
           .then(
-            function (success) { /* success */ },
+            function (success) {
+              var end = new Date();
+              var duration = end - start;
+              console.log('duration:', duration);
+            },
             function (error) { /* error */ });
     }
 
