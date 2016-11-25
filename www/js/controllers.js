@@ -71,6 +71,10 @@ angular.module('starter.controllers', [])
     $log.info('connected to server!');
   });
 
+  socket.on('remote', function(data) {
+    $log.debug('remote command received from server:', data);
+  });
+
   function sendId(newId) {
     socket.emit('config', { myId: newId} );
   }

@@ -13,4 +13,8 @@ io.on('connection', function (socket) {
   socket.on('config', function(data) {
     console.log('Got config:', data);
   })
+  socket.on('remote', function(data) {
+    console.log('Got remote command:', data);
+    socket.broadcast.emit('remote', data);
+  })
 });
