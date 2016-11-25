@@ -1,6 +1,8 @@
 # phone-lightrig
 Turning smartphone flashlights into a remote-controllable lighting rig.
 
-Not complete yet! We've got manual control of the flashlight - both stay on/off controls and intermittent blinking.
+Start the server in server/server.js using `node .`
 
-Next step is to use http://socket.io/ to do some realtime communication with a NodeJS server for controlling multiple phones remotely.
+You can control the remote commands (currently, just "blink start" and "blink stop") by opening a browser and pointing to `localhost:9000` on the same machine as the server.
+
+ We're using http://socket.io/ to do some realtime communication with a NodeJS server for controlling multiple phones remotely. Currently, the Ionic Framework / Cordova app on the phone(s) have a hardcoded IP address and port for the server as `192.168.1.5:9000`. Enough to get the proof of concept working.
