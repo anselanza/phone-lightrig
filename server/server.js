@@ -3,7 +3,8 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(80);
+server.listen(9000);
+console.log('Server listening on port 9000');
 
 app.use(express.static('public'));
 

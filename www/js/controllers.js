@@ -30,8 +30,9 @@ angular.module('starter.controllers', [])
   $log.info('AutoCtrl');
 
   $scope.myId = 100;
+  $scope.doing = 'nothing';
 
-  var socket = io.connect('http://192.168.1.5');
+  var socket = io.connect('http://192.168.1.5:9000');
 
   socket.on('connect', function(socket) {
     $log.info('connected to server!');
@@ -44,9 +45,11 @@ angular.module('starter.controllers', [])
 
       if (data.command == 'blinkStart') {
         LightFunctions.blinkStart(1000);
+        $scope.doing = "blinking";
       }
       if (data.command == 'blinkStop') {
         LightFunctions.blinkStop();
+        $scope.doing = "nothing";
       }
 
     }
