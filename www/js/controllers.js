@@ -62,6 +62,17 @@ angular.module('starter.controllers', [])
 
 .controller('AutoCtrl', function($scope, $log) {
   $log.info('AutoCtrl');
+
+  var socket = io.connect('http://192.168.1.5');
+
+  socket.on('connect', function(socket) {
+    $log.info('connected to server!');
+  });
+
+  // socket.on('news', function (data) {
+  //   console.log(data);
+  //   socket.emit('my other event', { my: 'data' });
+  // });
 })
 
 

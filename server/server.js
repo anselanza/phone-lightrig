@@ -8,5 +8,6 @@ server.listen(80);
 app.use(express.static('public'));
 
 io.on('connection', function (socket) {
+  console.log('Got a connection!');
   socket.emit({ request: 'id' });
 });
