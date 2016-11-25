@@ -29,10 +29,14 @@ angular.module('starter.controllers', [])
     }
 
     function blink(previous, intervalMS) {
-      var now = new Date();
-      var actualInterval = now - previous;
-      console.log('Blink! actualInterval = ' + actualInterval + 'ms / ' + intervalMS + 'ms');
-      $cordovaFlashlight.toggle();
+      $cordovaFlashlight.toggle()
+        .then(
+          function(success) {
+            var now = new Date();
+            var actualInterval = now - previous;
+            console.log('Blink! actualInterval = ' + actualInterval + 'ms / ' + intervalMS + 'ms');
+          }
+      );
     }
 
     $scope.blinkStart = function(intervalMS) {

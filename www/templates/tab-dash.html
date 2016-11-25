@@ -10,11 +10,11 @@
     <h2>Blink</h2>
     <div>
       <div class="item range">
-        <input type="range" name="blinkSpeed" ng-model="blinkSpeed" min="0" max="10000">
+        <input type="range" name="blinkSpeed" ng-model="blinkSpeed" min="0" max="1500">
       </div>
-      Speed in seconds: {{blinkSpeed / 1000}}
-      <button class="button button-block" ng-click="blinkStart(blinkSpeed)">Turn ON</button>
-      <button class="button button-block" ng-click="blinkStop(blinkSpeed)">Turn OFF</button>
+      Speed in ms: {{blinkSpeed}}
+      <button class="button button-block" ng-click="blinkStart(blinkSpeed)">Start Blink</button>
+      <button class="button button-block" ng-click="blinkStop(blinkSpeed)">Stop Blink</button>
     </div>
 
   </ion-content>
