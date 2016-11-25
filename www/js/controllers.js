@@ -1,10 +1,14 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $log, $ionicPlatform, $cordovaFlashlight) {
+.controller('DashCtrl', function($scope, $log, $ionicPlatform, $cordovaFlashlight, $interval) {
 
   $log.info('DashCtrl');
 
-$ionicPlatform.ready(function() {
+  var blinker;
+  $scope.blinkSpeed = 1000;
+
+  $ionicPlatform.ready(function() {
+
     $scope.turnOn = function() {
       var start = new Date();
       $cordovaFlashlight.switchOn()
@@ -23,6 +27,22 @@ $ionicPlatform.ready(function() {
             function (success) { /* success */ },
             function (error) { /* error */ });
     }
+
+    $scope.blinkStart = function() {
+      var intervalMS = $scope.blinkSpeed;
+      console.log('start blinking with interval ' + intervalMS + 'ms');
+      blinker = $interval(function() {
+        $cordovaFlashlight.toggle();
+      }, intervalMS);
+    }
+
+    $scope.blinkStop = function() {
+      if (blinker) {
+        console.log('stop blinking!');
+        blinker.cancel();
+      }
+    }
+
   });
 
 })
