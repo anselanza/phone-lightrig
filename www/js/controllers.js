@@ -28,19 +28,28 @@ angular.module('starter.controllers', [])
             function (error) { /* error */ });
     }
 
-    $scope.blinkStart = function() {
-      var intervalMS = $scope.blinkSpeed;
+    function blink(previous, intervalMS) {
+      var now = new Date();
+      var actualInterval = now - previous;
+      console.log('Blink! actualInterval = ' + actualInterval + 'ms / ' + intervalMS + 'ms');
+      $cordovaFlashlight.toggle();
+    }
+
+    $scope.blinkStart = function(intervalMS) {
+      // var intervalMS = $scope.blinkSpeed;
       console.log('start blinking with interval ' + intervalMS + 'ms');
+      var previous = new Date();
+      // blink(previous, intervalMS);
       blinker = $interval(function() {
-        $cordovaFlashlight.toggle();
+        blink(previous, intervalMS);
+        previous = new Date();
       }, intervalMS);
+
     }
 
     $scope.blinkStop = function() {
-      if (blinker) {
-        console.log('stop blinking!');
-        blinker.cancel();
-      }
+      console.log('stop blinking!');
+      $interval.cancel(blinker);
     }
 
   });
