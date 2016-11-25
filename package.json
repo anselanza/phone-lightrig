@@ -1,7 +1,7 @@
 {
-  "name": "androidintellilight",
+  "name": "phonelightrig",
   "version": "1.1.1",
-  "description": "androidIntellilight: An Ionic project",
+  "description": "phoneLightrig: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
