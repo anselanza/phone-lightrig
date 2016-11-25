@@ -1,66 +1,32 @@
 angular.module('starter.controllers', [])
 
-.controller('ManualCtrl', function($scope, $log, $ionicPlatform, $cordovaFlashlight, $interval) {
+.controller('ManualCtrl', function($scope, $log, $ionicPlatform, LightFunctions, $interval) {
 
   $log.info('ManualCtrl');
 
   var blinker;
   $scope.blinkSpeed = 1000;
 
-  $ionicPlatform.ready(function() {
 
-    $scope.turnOn = function() {
-      var start = new Date();
-      $cordovaFlashlight.switchOn()
-          .then(
-            function (success) {
-              var end = new Date();
-              var duration = end - start;
-              console.log('duration:', duration);
-            },
-            function (error) { /* error */ });
-    }
+  $scope.turnOn = function() {
+    LightFunctions.turnOn();
+  }
 
-    $scope.turnOff = function() {
-      $cordovaFlashlight.switchOff()
-          .then(
-            function (success) { /* success */ },
-            function (error) { /* error */ });
-    }
+  $scope.turnOff = function() {
+    LightFunctions.turnOff();
+  }
 
-    function blink(previous, intervalMS) {
-      $cordovaFlashlight.toggle()
-        .then(
-          function(success) {
-            var now = new Date();
-            var actualInterval = now - previous;
-            console.log('Blink! actualInterval = ' + actualInterval + 'ms / ' + intervalMS + 'ms');
-          }
-      );
-    }
+  $scope.blinkStart = function(intervalMS) {
+    LightFunctions.blinkStart(intervalMS);
+  }
 
-    $scope.blinkStart = function(intervalMS) {
-      // var intervalMS = $scope.blinkSpeed;
-      console.log('start blinking with interval ' + intervalMS + 'ms');
-      var previous = new Date();
-      // blink(previous, intervalMS);
-      blinker = $interval(function() {
-        blink(previous, intervalMS);
-        previous = new Date();
-      }, intervalMS);
-
-    }
-
-    $scope.blinkStop = function() {
-      console.log('stop blinking!');
-      $interval.cancel(blinker);
-    }
-
-  });
+  $scope.blinkStop = function() {
+    LightFunctions.blinkStop();
+  }
 
 })
 
-.controller('AutoCtrl', function($scope, $log) {
+.controller('AutoCtrl', function($scope, $log, LightFunctions) {
   $log.info('AutoCtrl');
 
   $scope.myId = 100;
@@ -73,6 +39,17 @@ angular.module('starter.controllers', [])
 
   socket.on('remote', function(data) {
     $log.debug('remote command received from server:', data);
+    if (data.id == 'all' || data.id == $scope.myId) {
+      console.log('applies to me!');
+
+      if (data.command == 'blinkStart') {
+        LightFunctions.blinkStart(1000);
+      }
+      if (data.command == 'blinkStop') {
+        LightFunctions.blinkStop();
+      }
+
+    }
   });
 
   function sendId(newId) {
