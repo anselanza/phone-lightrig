@@ -1,5 +1,21 @@
 <ion-view view-title="Auto">
   <ion-content class="padding">
     <h2>Auto Mode</h2>
+
+    id: {{myId}}
+
+    <div class="list">
+
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="number" ng-model="myId">
+        </label>
+        <button class="button button-small" ng-click="updateId(myId)">
+          Set
+        </button>
+      </div>
+
+    </div>
+
   </ion-content>
 </ion-view>

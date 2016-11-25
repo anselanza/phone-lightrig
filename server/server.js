@@ -9,5 +9,8 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
   console.log('Got a connection!');
-  socket.emit({ request: 'id' });
+  socket.emit('config', { want: 'sendId' });
+  socket.on('config', function(data) {
+    console.log('Got config:', data);
+  })
 });

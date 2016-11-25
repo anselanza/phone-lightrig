@@ -63,16 +63,28 @@ angular.module('starter.controllers', [])
 .controller('AutoCtrl', function($scope, $log) {
   $log.info('AutoCtrl');
 
+  $scope.myId = 100;
+
   var socket = io.connect('http://192.168.1.5');
 
   socket.on('connect', function(socket) {
     $log.info('connected to server!');
   });
 
-  // socket.on('news', function (data) {
-  //   console.log(data);
-  //   socket.emit('my other event', { my: 'data' });
-  // });
+  function sendId(newId) {
+    socket.emit('config', { myId: newId} );
+  }
+
+  socket.on('config', function (data) {
+    console.log(data);
+    sendId($scope.myId);
+  });
+
+  $scope.updateId = function(newId) {
+    console.log('Going to update to:', newId);
+    sendId(newId);
+  }
+
 })
 
 
